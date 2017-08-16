@@ -1,0 +1,65 @@
+[filename, pathname] =uigetfile({'*.jpg';'*.tif';'*.png';'*.bmp';'*.gif'},'File Selector');
+[savefilename,savepath]=uiputfile({'*.jpg';'*.tif';'*.png';'*.bmp';'*.gif'},'save img');
+str = [savepath savefilename]
+imwrite(EstimatedAlpha,str)
+
+mcc -m matting.fig matting.m WeightedColorTextureMatting.m LDA.m LabelExpansion.m GlobalBlkBaseSampleGenerator_V7.m GetNextLevelCluster.m getLaplacian1.m GetFBSofGMLl1BasedKgLine_V55_7_3.m FunOverLapDist_V0.m FunGetBlockPeak.m FunCoefHistCut_V4.m FunCoefHistCut_V2.m Fun_TextureImageConstructionV18.m Fun_SmoothingMatting.m Fun_SharedDistMatting_V55_7_3.m Fun_PCADimReduction.m Fun_MultiLevelPixelBoundarySmpSel_Color_V1.m Fun_LDADimReduction.m Fun_Find_NumCluster.m Fun_ComprehensiveMatting.m Fun_CohenDOverlap_V1.m ComprehensiveSamplingMatting.m Best_FBSelection_MLevelClusstering_V1_1.m Best_FBSelection_MLevelClusstering.m
+
+I = imread(picture1);  
+%Trimap = imread(picture2);
+
+BWB=roipoly(I);
+BWB_ = uint8(BWB);
+BWB_(find(BWB_==0))=160;
+BWB_(find(BWB_==1))=0;
+
+BWF=roipoly(I);
+BWF_ = uint8(BWF);
+BWF_(find(BWF_==0))=160;
+BWF_(find(BWF_==1))=255;
+
+Trimap = BWF_-BWB_
+axes(handles.trimap);
+imshow(Trimap);
+
+
+path = 'D:\output\'
+savename = strrep(filename1,'.jpg','-mask.bmp')
+save = fullfile(path,savename)
+imwrite(EstimatedAlpha,save)
+
+
+srcDir=uigetdir('Choose source directory.'); %获得选择的文件夹
+cd(srcDir);
+allnames=struct2cell(dir('*.jpg')); %只处理8位的bmp文件
+[k,len]=size(allnames); %获得bmp文件的个数
+I = cell(1,len);
+Trimap = cell(1,len);
+EstimatedAlpha = cell(1,len);
+name = {1,i}
+for i=1:len  %逐次取出文件
+    name{1,i}=allnames{1,i};
+    I{1,i}=imread(name{1,i}); %读取文件
+    
+    BWB=roipoly(I{1,i});
+    BWB_ = uint8(BWB);
+    BWB_(find(BWB_==0))=160;
+    BWB_(find(BWB_==1))=0;
+    
+    BWF=roipoly(I{1,i});
+    BWF_ = uint8(BWF);
+    BWF_(find(BWF_==0))=160;
+    BWF_(find(BWF_==1))=255;
+    
+    Trimap{1,i} = BWF_-BWB_
+    
+    %EstimatedAlpha{1,i} = WeightedColorTextureMatting(I{1,i},Trimap{1,i}) ; 
+end 
+
+for j=1:len
+    EstimatedAlpha{1,j} = WeightedColorTextureMatting(I{1,j},Trimap{1,j});
+    path = 'D:\12\';
+    savename = strrep(name{1,j},'.jpg','-mask.bmp');
+    save = fullfile(path,savename);
+    imwrite(EstimatedAlpha{1,j},save) %然后在此处添加的图像处理程序即可
+end
