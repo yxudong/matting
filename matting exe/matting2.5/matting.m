@@ -80,17 +80,13 @@ function algorithm1_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 global picture1;
-%global picture2;
+
 
 [filename1, pathname1] =uigetfile({'*.jpg';'*.tif';'*.png';'*.bmp';'*.gif'},'select the image');
 picture1 = fullfile(pathname1,filename1);
 axes(handles.image);
 imshow(imread(picture1));  
 
-%[filename2, pathname2] =uigetfile({'*.jpg';'*.tif';'*.png';'*.bmp';'*.gif'},'select the trimap');
-%picture2 = fullfile(pathname2,filename2);
-%axes(handles.trimap);
-%imshow(imread(picture2));
 
 I = imread(picture1);   
 R=roipoly(I);
@@ -156,17 +152,13 @@ function algorithm2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 global picture3;
-%global picture4;
+
 
 [filename1, pathname1] =uigetfile({'*.jpg';'*.tif';'*.png';'*.bmp';'*.gif'},'select the image');
 picture3 = fullfile(pathname1,filename1);
 axes(handles.image);
 imshow(imread(picture3));  
 
-%[filename2, pathname2] =uigetfile({'*.jpg';'*.tif';'*.png';'*.bmp';'*.gif'},'select the trimap');
-%picture4 = fullfile(pathname2,filename2);
-%axes(handles.trimap);
-%imshow(imread(picture4));
 
 I = imread(picture3);  
 R=roipoly(I);

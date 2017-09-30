@@ -79,19 +79,6 @@ function algorithm1_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-%global picture1;
-%global picture2;
-
-%[filename1, pathname1] =uigetfile({'*.jpg';'*.tif';'*.png';'*.bmp';'*.gif'},'select the image');
-%picture1 = fullfile(pathname1,filename1);
-%axes(handles.image);
-%imshow(imread(picture1));  
-
-%[filename2, pathname2] =uigetfile({'*.jpg';'*.tif';'*.png';'*.bmp';'*.gif'},'select the trimap');
-%picture2 = fullfile(pathname2,filename2);
-%axes(handles.trimap);
-%imshow(imread(picture2));
-
 
 srcDir=uigetdir('Choose source directory.'); %获得选择的文件夹
 cd(srcDir);
@@ -152,7 +139,6 @@ for i=1:len
     Trimap{1,i} = uint8(R_{1,i});
     axes(handles.trimap);
     imshow(Trimap{1,i});
-    %EstimatedAlpha{1,i} = WeightedColorTextureMatting(I{1,i},Trimap{1,i}) ; 
 end 
 
 for j=1:len
@@ -175,63 +161,6 @@ function algorithm2_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-%global picture3;
-%global picture4;
-
-%[filename1, pathname1] =uigetfile({'*.jpg';'*.tif';'*.png';'*.bmp';'*.gif'},'select the image');
-%picture3 = fullfile(pathname1,filename1);
-%axes(handles.image);
-%imshow(imread(picture3));  
-
-%[filename2, pathname2] =uigetfile({'*.jpg';'*.tif';'*.png';'*.bmp';'*.gif'},'select the trimap');
-%picture4 = fullfile(pathname2,filename2);
-%axes(handles.trimap);
-%imshow(imread(picture4));
-
-%I = imread(picture3);  
-%Trimap = rgb2gray(imread(picture4));
-
-% srcDir=uigetdir('Choose source directory.'); %获得选择的文件夹
-% cd(srcDir);
-% allnames=struct2cell(dir('*.jpg')); %只处理8位的bmp文件
-% [k,len]=size(allnames); %获得bmp文件的个数
-% I = cell(1,len);
-% Trimap = cell(1,len);
-% EstimatedAlpha = cell(1,len);
-% name = cell(1,len);
-% for i=1:len  %逐次取出文件
-%     name{1,i}=allnames{1,i};
-%     I{1,i}=imread(name{1,i}); %读取文件
-%     axes(handles.image);
-%     imshow(I{1,i});
-%     
-%     BWB=roipoly(I{1,i});
-%     BWB_ = uint8(BWB);
-%     BWB_(find(BWB_==0))=160;
-%     BWB_(find(BWB_==1))=0;
-%     
-%     BWF=roipoly(I{1,i});
-%     BWF_ = uint8(BWF);
-%     BWF_(find(BWF_==0))=160;
-%     BWF_(find(BWF_==1))=255;
-%     
-%     Trimap{1,i} = BWF_-BWB_;
-%     axes(handles.trimap);
-%     imshow(Trimap{1,i});
-%     
-%     %EstimatedAlpha{1,i} = WeightedColorTextureMatting(I{1,i},Trimap{1,i}) ; 
-% end 
-% 
-% for j=1:len
-%     EstimatedAlpha{1,j} = WeightedColorTextureMatting(I{1,j},Trimap{1,j});
-%     axes(handles.alpha);
-%     imshow(EstimatedAlpha{1,i});
-%     path = 'D:\output\';
-%     savename = strrep(name{1,j},'.jpg','-mask.bmp');
-%     save = fullfile(path,savename);
-%     imwrite(EstimatedAlpha{1,j},save) %然后在此处添加的图像处理程序即可
-% end
-
 
 srcDir=uigetdir('Choose source directory.'); %获得选择的文件夹
 cd(srcDir);
@@ -245,7 +174,7 @@ EstimatedAlpha = cell(1,len);
 name = cell(1,len);
 for i=1:len                                  %逐次取出文件
     name{1,i}=allnames{1,i};
-    I{1,i}=imread(name{1,i});                %读取文件
+    I{1,i}=imread(name{1,i});
     axes(handles.image);
     imshow(I{1,i});
     R{1,i}=roipoly(I{1,i});                  %标注返回二值图像
@@ -307,7 +236,3 @@ for j=1:len
         continue
     end
 end
-
-%[savefilename,savepath]=uiputfile({'*.jpg';'*.tif';'*.png';'*.bmp';'*.gif'},'save the alpha image','-mask');
-%str = [savepath savefilename];
-%imwrite(EstimatedAlpha,str);

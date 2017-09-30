@@ -81,8 +81,8 @@ function algorithm1_Callback(hObject, eventdata, handles)
 
 srcDir=uigetdir('Choose source directory.'); %获得选择的文件夹
 cd(srcDir);
-allnames=struct2cell(dir('*.jpg')); %只处理8位的bmp文件
-[k,len]=size(allnames); %获得bmp文件的个数
+allnames=struct2cell(dir('*.jpg'));
+[k,len]=size(allnames);
 I = cell(1,len);
 Trimap = cell(1,len);
 EstimatedAlpha = cell(1,len);
@@ -90,7 +90,7 @@ name = cell(1,len);
 for i=1:len  %逐次取出文件
     try
         name{1,i}=allnames{1,i};
-        I{1,i}=imread(name{1,i}); %读取文件
+        I{1,i}=imread(name{1,i});
         axes(handles.image);
         imshow(I{1,i});
     
@@ -120,8 +120,6 @@ for i=1:len  %逐次取出文件
     catch
         continue
     end
-
-    %EstimatedAlpha{1,i} = WeightedColorTextureMatting(I{1,i},Trimap{1,i}) ; 
 end 
 
 for j=1:len
@@ -147,8 +145,8 @@ function algorithm2_Callback(hObject, eventdata, handles)
 
 srcDir=uigetdir('Choose source directory.'); %获得选择的文件夹
 cd(srcDir);
-allnames=struct2cell(dir('*.jpg')); %只处理8位的bmp文件
-[k,len]=size(allnames); %获得bmp文件的个数
+allnames=struct2cell(dir('*.jpg'));
+[k,len]=size(allnames);
 I = cell(1,len);
 Trimap = cell(1,len);
 EstimatedAlpha = cell(1,len);
@@ -156,7 +154,7 @@ name = cell(1,len);
 for i=1:len  %逐次取出文件
     try
         name{1,i}=allnames{1,i};
-        I{1,i}=imread(name{1,i}); %读取文件
+        I{1,i}=imread(name{1,i});
         axes(handles.image);
         imshow(I{1,i});
 
@@ -201,7 +199,3 @@ for j=1:len
         continue
     end
 end
-
-%[savefilename,savepath]=uiputfile({'*.jpg';'*.tif';'*.png';'*.bmp';'*.gif'},'save the alpha image','-mask');
-%str = [savepath savefilename];
-%imwrite(EstimatedAlpha,str);

@@ -63,3 +63,9 @@ for j=1:len
     save = fullfile(path,savename);
     imwrite(EstimatedAlpha{1,j},save) %然后在此处添加的图像处理程序即可
 end
+
+
+mcc -m begin.fig begin.m abmtSetup.m closedFormMatting.m ComprehensiveSamplingMatting.m Fun_Find_NumCluster.m Fun_LDADimReduction.m Fun_PCADimReduction.m Fun_SharedDistMatting_V55_7_3.m Fun_SmoothingMatting.m Fun_TextureImageConstructionV18.m FunCoefHistCut_V2.m FunCoefHistCut_V4.m ...
+FunGetBlockPeak.m FunOverLapDist_V0.m GetFBSofGMLl1BasedKgLine_V55_7_3.m getGMatByMask.m getLaplacian1.m GetNextLevelCluster.m GlobalBlkBaseSampleGenerator_V7.m imIndexToVect.m informationFlowMatteRefinement.m informationFlowMatting.m KNNMatting.m LabelExpansion.m LDA.m sharedMattingMatteRefinement.m ...
+solveFB.m WeightedColorTextureMatting.m affinity/colorMixtureAffinities.m affinity/colorSimilarityAffinities.m affinity/knownToUnknownColorMixture.m affinity/mattingAffinity.m common/affinityMatrixToLaplacian.m common/detectHighlyTransparent.m common/findNonlocalNeighbors.m common/getMattingParams.m ...
+common/localLinearEmbedding.m common/localRGBnormalDistributions.m common/solveForAlphas.m trimming/patchBasedTrimming.m trimming/trimmingFromKnownUnknownEdges.m
